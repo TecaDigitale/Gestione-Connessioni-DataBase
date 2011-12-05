@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+  30-nov-2005 11.58.13                                                        
+
+  Script per la generazione del file jar del progetto
+           
+   Randazzo                                
+   ====================================================================== -->
+<project name="GestSocket" default="deploy" basedir=".">
+  <property name="dist" location="dist"/>
+  <property name="bin" location="bin"/>
+  <property name="package" location="${libTerzeParti.home}/mx/database"/>
+  <property name="jar" value="GestioneConnessioniDatabase"/>
+
+  <description>
+    Script per la generazione del file jar del progetto
+  </description>
+
+  <!-- ================================= 
+      target: default        
+     ================================= -->
+  <target name="deploy" depends="init" description="genera il file jar del progetto">
+    <mkdir dir="${package}"/>
+    <delete file="${jar}.jar"/>
+    <jar jarfile="${package}/${jar}.jar" basedir="${dist}"/>
+    <delete dir="${dist}"/>
+
+  </target>
+
+  <target name="init" description="Genera una cartella temporanea dove scaricare i file relativi al progetto">
+    <mkdir dir="${dist}"/>
+    <copy todir="${dist}/">
+      <fileset dir="${bin}">
+        <include name="**/*.class"/>
+        <include name="**//**/*.class"/>
+        <exclude name="**/*Test.class"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>
+

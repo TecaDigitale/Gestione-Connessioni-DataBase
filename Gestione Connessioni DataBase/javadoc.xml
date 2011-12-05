@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="private" author="true"
+            classpath="F:\Progetti\Librerie Terze Parti\Librerie Terze Parti Java\org\apache\axis\axis.jar;F:\Progetti\Librerie Terze Parti\Librerie Terze Parti Java\javax\xml\soap\saaj.jar;F:\Progetti\Librerie Terze Parti\Librerie Terze Parti Java\com\microsoft\msbase.jar;F:\Progetti\Librerie Terze Parti\Librerie Terze Parti Java\org\apache\log4j\log4j-1.2.14.jar;F:\Progetti\Librerie Terze Parti\Librerie Terze Parti Java\mx\xml\GestioneXml.jar;C:\eclipse 3.3\plugins\org.junit_3.8.2.v200706111738\junit.jar;F:\Progetti\Librerie Terze Parti\Librerie Terze Parti Java\Randazzo\MD5Library.jar;F:\Progetti\Librerie Terze Parti\Librerie Terze Parti Java\mx\magEdit\XmlMagGestFileMag.jar;F:\Progetti\Librerie Terze Parti\Librerie Terze Parti Java\mx\LibreriePersonali.jar"
+            destdir="F:\Progetti\Librerie x Puccianti\doc" nodeprecated="false"
+            nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false"
+            packagenames="mx.database.table.interfacce,mx.database,mx.utility.test,mx.database.interfacce,mx.utility.security,mx.converter.exception,mx.database.connessioni,mx.database.navigator,mx.text.converter,mx.database.test,mx.database.table.test,mx.util,mx.utility,mx.utility.exception,util,mx.converter,mx.database.table,mx.log4j"
+            source="1.3" sourcepath="F:\Progetti\Java\Personale\Librerie Personali\src;src"
+            splitindex="true" use="true" version="true">
+            <link href="http://logging.apache.org/log4j/1.2/apidocs/"/>
+            <link href="file:/F:/Progetti/Documentazione/Personale/"/>
+            <link href="http://www.junit.org/junit/javadoc/3.8.1"/>
+            <link href="http://java.sun.com/javase/6/docs/api/"/>
+            <link href="file:/F:/Progetti/Librerie x Puccianti/doc/"/>
+        </javadoc>
+    </target>
+</project>
