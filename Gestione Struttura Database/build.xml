@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+  30-nov-2005 11.58.13                                                        
+
+  Script per la generazione del file jar del progetto e la relativa firma digitale
+           
+   Randazzo                                
+   ====================================================================== -->
+<project name="TecaPublicazioneServer" default="deployPublServer" basedir=".">
+  <property name="dist" location="dist"/>
+  <property name="bin" location="bin"/>
+  <property name="packageDest" location="${libTerzeParti.home}/mx/database/struttura"/>
+  <property name="jar" value="GestioneStrutturaDatabase"/>
+
+  <description>
+    Script per la generazione del file jar del progetto
+  </description>
+
+  <!-- ================================= 
+      target: default        
+     ================================= -->
+  <target name="deployPublServer" depends="initPublServer" description="genera il file jar del progetto">
+    <mkdir dir="${packageDest}"/>
+    <delete file="${jar}.jar"/>
+    <jar jarfile="${packageDest}/${jar}.jar" basedir="${dist}"/>
+  	<delete dir="${dist}"/>
+
+  </target>
+
+  <target name="initPublServer" description="Genera una cartella temporanea dove scaricare i file relativi al progetto">
+    <mkdir dir="${dist}"/>
+    <copy todir="${dist}/">
+      <fileset dir="${bin}">
+        <include name="**/*.class"/>
+      </fileset>
+    </copy>
+  </target>
+
+
+</project>
+
