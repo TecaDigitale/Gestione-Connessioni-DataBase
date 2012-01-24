@@ -205,7 +205,7 @@ public class Postgres implements IMsSql
       ris = stat.executeUpdate(comando);
 			tFin = new GregorianCalendar();
 			if ((tFin.getTimeInMillis()-tIni.getTimeInMillis())>3000)
-				log.fatal("L'esecuzuine ["+comando+"] è stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
+				log.fatal("L'esecuzuine ["+comando+"] ï¿½ stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
     }
     catch (SQLException e)
     {
@@ -275,7 +275,7 @@ public class Postgres implements IMsSql
       cs.execute();
 			tFin = new GregorianCalendar();
 			if ((tFin.getTimeInMillis()-tIni.getTimeInMillis())>3000)
-				log.fatal("La Stored Procedure ["+NomeSp+"] è stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
+				log.fatal("La Stored Procedure ["+NomeSp+"] ï¿½ stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
 
       if (cs.getInt(1) != 0) { throw new MsSqlException(cs.getInt(1), cs
           .getString(2)); }
@@ -368,7 +368,7 @@ public class Postgres implements IMsSql
       cs.execute();
 			tFin = new GregorianCalendar();
 			if ((tFin.getTimeInMillis()-tIni.getTimeInMillis())>3000)
-				log.fatal("La Stored Procedure ["+NomeSp+"] è stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
+				log.fatal("La Stored Procedure ["+NomeSp+"] ï¿½ stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
 
       if (cs.getInt(2) != 0)
       {
@@ -687,7 +687,7 @@ public class Postgres implements IMsSql
     log.error(e.getMessage());
     if ((e.getMessage().indexOf("Cannot connect to jdbc") > -1 || (e
         .getSQLState().equals("08004")
-        || e.getSQLState().equals("08003") || e.getSQLState().equals("08S01")))
+        || e.getSQLState().equals("08003") || e.getSQLState().equals("08S01") || e.getSQLState().equals("08006")))
         && tentativi < 20)
       ris = true;
     return ris;
@@ -704,7 +704,7 @@ public class Postgres implements IMsSql
   {
     boolean ris = false;
     if (e.getSQLState().equals("08000") || e.getSQLState().equals("08003")
-        || e.getSQLState().equals("08S01"))
+        || e.getSQLState().equals("08S01") || e.getSQLState().equals("08006"))
       ris = true;
     return ris;
   }
