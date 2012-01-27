@@ -830,7 +830,12 @@ public abstract class DataSet
    */
   public Object getCampoValue(String key)
   {
-    return this.getCampo(key).getValue();
+	  if (this.getCampo(key) != null){
+		  return this.getCampo(key).getValue();
+	  }
+	  else{
+		  return null;
+	  }
   }
 
   /**
