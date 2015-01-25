@@ -16,9 +16,10 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.GregorianCalendar;
 
+import org.apache.log4j.Logger;
+
 import mx.database.MsSqlException;
 import mx.database.interfacce.IMsSql;
-import mx.log4j.Logger;
 
 /**
  * Questa classe viene utilizzata per gli accessi al database utilizzando le
@@ -34,7 +35,7 @@ public class MicrosoftSql2005 implements IMsSql
   /**
    * Questa variabile viene utilizzata per eseguire lo log delle applicazioni
    */
-  private static Logger log = new Logger(MicrosoftSql2005.class, "mx.database");
+  private static Logger log = Logger.getLogger(MicrosoftSql2005.class);
 
 	/**
 	 * Nome del Server SQL
@@ -501,7 +502,7 @@ public class MicrosoftSql2005 implements IMsSql
       ris = stat.executeUpdate(comando);
 			tFin = new GregorianCalendar();
 			if ((tFin.getTimeInMillis()-tIni.getTimeInMillis())>3000)
-				log.fatal("L'esecuzuine ["+comando+"] è stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
+				log.fatal("L'esecuzuine ["+comando+"] ï¿½ stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
     }
     catch (SQLException e)
     {

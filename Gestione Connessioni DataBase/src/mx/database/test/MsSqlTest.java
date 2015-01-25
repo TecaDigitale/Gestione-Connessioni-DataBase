@@ -33,7 +33,7 @@ public class MsSqlTest extends TestCase
 
 	public static void main(String[] args)
 	{
-		junit.swingui.TestRunner.run(MsSqlTest.class);
+//		junit.swingui.TestRunner.run(MsSqlTest.class);
 	}
 
 	/**
@@ -54,11 +54,11 @@ public class MsSqlTest extends TestCase
 			msSql.setDatabase("Northwind");
 			msSql.setTipoDb("MS-SQL");
 			msSql.openDb();
-			res = msSql.StartSelect("Select * from Categories");
+			res = msSql.StartSelect("Select * from CATEGORIES");
 			System.out.println("Record Trovati "+msSql.getRecTot());
 			assertTrue("Ci Sono Record ",msSql.getRecTot()>0);
 			assertTrue("Non ci sono record Assegnato",res.next());
-			assertTrue("Il contatatore è 0",res.getInt("Conta")>0);
+			assertTrue("Il contatatore ï¿½ 0",res.getInt("Conta")>0);
 		}
 		catch (SQLException e)
 		{
@@ -97,7 +97,7 @@ public class MsSqlTest extends TestCase
 			msSql.setDatabase("AIAC");
 			msSql.setTipoDb("MaxDB");
 			msSql.openDb();
-			res = msSql.StartSelect("Select * from Servizio");
+			res = msSql.StartSelect("Select * from SERVIZIO");
 			System.out.println("Record Trovati "+msSql.getRecTot());
 			assertTrue("Ci Sono Record ",msSql.getRecTot()>0);
 			while(res.next())
@@ -142,7 +142,7 @@ public class MsSqlTest extends TestCase
 			msSql.setDatabase("Intronati");
 			msSql.setTipoDb("MySql");
 			msSql.openDb();
-			res = msSql.StartSelect("Select * from t_menu_header");
+			res = msSql.StartSelect("Select * from T_MENU_HEADER");
 			System.out.println("Record Trovati "+msSql.getRecTot());
 			assertTrue("Ci Sono Record ",msSql.getRecTot()>0);
 		  System.out.println(res.getRow());
@@ -198,7 +198,7 @@ public class MsSqlTest extends TestCase
 
 			res = msSql.StartSelect("Select count(*) as Conta from Polizze");
 			assertTrue("Non ci sono record Assegnato",res.next());
-			assertTrue("Il contatatore è 0",res.getInt("Conta")>0);
+			assertTrue("Il contatatore ï¿½ 0",res.getInt("Conta")>0);
 		}
 		catch (SQLException e)
 		{

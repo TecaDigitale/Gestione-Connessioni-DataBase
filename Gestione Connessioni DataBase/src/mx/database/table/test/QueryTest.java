@@ -26,7 +26,7 @@ public class QueryTest extends TestCase
   
   public static void main(String[] args)
   {
-    junit.swingui.TestRunner.run(QueryTest.class);
+//    junit.swingui.TestRunner.run(QueryTest.class);
   }
 
   /*

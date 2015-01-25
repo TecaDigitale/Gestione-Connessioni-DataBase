@@ -15,9 +15,10 @@ import java.sql.Types;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 import mx.database.MsSqlException;
 import mx.database.interfacce.IMsSql;
-import mx.log4j.Logger;
 
 /**
  * Questa classe viene utilizzata per implementare l'accesso al database Postgress
@@ -32,7 +33,7 @@ public class Postgres implements IMsSql
   /**
    * Questa variabile viene utilizzata per eseguire lo log delle applicazioni
    */
-  private static Logger log = new Logger(Postgres.class, "mx.database");
+  private static Logger log = Logger.getLogger(Postgres.class);
 
 
   /**

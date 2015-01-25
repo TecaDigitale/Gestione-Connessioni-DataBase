@@ -26,7 +26,7 @@ public class TableTest extends TestCase
   
   public static void main(String[] args)
   {
-    junit.swingui.TestRunner.run(TableTest.class);
+//    junit.swingui.TestRunner.run(TableTest.class);
   }
 
   /**
