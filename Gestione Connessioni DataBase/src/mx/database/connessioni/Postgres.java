@@ -688,7 +688,7 @@ public class Postgres implements IMsSql
     log.error(e.getMessage());
     if ((e.getMessage().indexOf("Cannot connect to jdbc") > -1 || (e
         .getSQLState().equals("08004")
-        || e.getSQLState().equals("08003") || e.getSQLState().equals("08S01")))
+        || e.getSQLState().equals("08003") || e.getSQLState().equals("08S01") || e.getSQLState().equals("08006")))
         && tentativi < 20)
       ris = true;
     return ris;
@@ -705,8 +705,7 @@ public class Postgres implements IMsSql
   {
     boolean ris = false;
     if (e.getSQLState().equals("08000") || e.getSQLState().equals("08003")
-        || e.getSQLState().equals("08S01") ||
-        e.getSQLState().equals("08006"))
+        || e.getSQLState().equals("08S01") || e.getSQLState().equals("08006"))
       ris = true;
     return ris;
   }

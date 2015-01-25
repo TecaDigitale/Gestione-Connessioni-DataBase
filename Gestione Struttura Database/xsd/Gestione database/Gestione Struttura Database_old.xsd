@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="database">
+    <xs:annotation>
+      <xs:documentation xml:lang="it">Viene utilizzato per indicare le informazioni del Database</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="table"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="table">
+    <xs:annotation>
+      <xs:documentation xml:lang="it">Viene utilizzato per gestire le informazioni relative alla Tabella</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="column"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="index"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation xml:lang="it">Nome della tabella</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="comment" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="it">Commento legato alla Tabella</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="column">
+    <xs:annotation>
+      <xs:documentation xml:lang="it">Viene utilizzato per indicare le informazioni della Colonna</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="it">Nome della colonna</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="type">
+          <xs:annotation>
+            <xs:documentation xml:lang="it">Viene utilizzato per indicare la tipologia della colonna</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="INT4"/>
+              <xs:enumeration value="VARCHAR"/>
+              <xs:enumeration value="BOOL"/>
+              <xs:enumeration value="TIMESTAMP"/>
+              <xs:enumeration value="DATE"/>
+              <xs:enumeration value="TIME"/>
+              <xs:enumeration value="INT11"/>
+              <xs:enumeration value="CHAR"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element minOccurs="0" name="length" type="xs:integer">
+          <xs:annotation>
+            <xs:documentation xml:lang="it">Viene utilizzato per indicare la lunghezza del campo</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element default="false" name="primaryKey" type="xs:boolean" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="it">Viene utilizzato per indicare che la colonna è una Chiave Primaria</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element default="true" name="null" type="xs:boolean" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="it">Viene utilizzato per indicare se la colonna può essere nulla</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="index">
+    <xs:annotation>
+      <xs:documentation>Viene utilizzato per indicare le informzioni necessarie per l'indice</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="column">
+          <xs:annotation>
+            <xs:documentation>Nome della colonna da utilizzare nell'indice</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="crescent" type="xs:boolean" use="required">
+                  <xs:annotation>
+                    <xs:documentation>Indica se la colonna deve essere indicizzata con ordine crescento o decrescente.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Nome dell'indice da associare</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="unique" type="xs:boolean" use="required">
+        <xs:annotation>
+          <xs:documentation>Indica se l'indice è di tipo univoco</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

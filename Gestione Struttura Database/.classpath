@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Gestione Connessioni DataBase"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Librerie Personali"/>
+	<classpathentry kind="lib" path="/Librerie Terze Parti Java/org/apache/log4j/log4j-1.2.14.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://logging.apache.org/log4j/1.2/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v5.5">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.utility"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/Gestione Parser Xml"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Gestione Xml"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/XmlMag Gestione file Mag"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/XmlMag Gestione file Mag Convert"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/XmlMag Gestione file Mag Interfacce"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/XmlMag Gestione Immagini"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/XmlMag Librerie di Utility"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
