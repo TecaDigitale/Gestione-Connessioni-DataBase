@@ -33,7 +33,7 @@ public class ConnectionPoolTest extends TestCase
 
 	public static void main(String[] args)
 	{
-		junit.swingui.TestRunner.run(ConnectionPoolTest.class);
+//		junit.swingui.TestRunner.run(ConnectionPoolTest.class);
 	}
 
   final public void testStored()
@@ -59,7 +59,7 @@ public class ConnectionPoolTest extends TestCase
 		// prendo la prima connessione
 		con1 = conn.getConn();
 		System.out.println("Conn 1 = "+con1.getNCon());
-		assertNotNull("La connessione numero 1 non è stata assegnata", con1);
+		assertNotNull("La connessione numero 1 non ï¿½ stata assegnata", con1);
 
 		try
 		{
@@ -89,7 +89,7 @@ public class ConnectionPoolTest extends TestCase
 		// prendo la prima connessione
 		con1 = conn.getConn();
 		System.out.println("Conn 1 = "+con1.getNCon());
-		assertNotNull("La connessione numero 1 non è stata assegnata", con1);
+		assertNotNull("La connessione numero 1 non ï¿½ stata assegnata", con1);
 
 		try
 		{
@@ -119,7 +119,7 @@ public class ConnectionPoolTest extends TestCase
 		// prendo la prima connessione
 		con1 = conn.getConn();
 		System.out.println("Conn 1 = "+con1.getNCon());
-		assertNotNull("La connessione numero 1 non è stata assegnata", con1);
+		assertNotNull("La connessione numero 1 non ï¿½ stata assegnata", con1);
 
 		try
 		{
@@ -173,7 +173,7 @@ public class ConnectionPoolTest extends TestCase
 		// prendo la prima connessione
 		con1 = conn.getConn();
 		System.out.println("Conn 1 = "+con1.getNCon());
-		assertNotNull("La connessione numero 1 non è stata assegnata", con1);
+		assertNotNull("La connessione numero 1 non ï¿½ stata assegnata", con1);
 
 		try
 		{
@@ -221,7 +221,7 @@ public class ConnectionPoolTest extends TestCase
 			}
 		}
 		System.out.println("Conn 2 = "+con2.getNCon());
-		assertNotNull("La connessione numero 2 non è stata assegnata", con2);
+		assertNotNull("La connessione numero 2 non ï¿½ stata assegnata", con2);
 
 		conn.releaseConn(con1);
 		System.out.println("Rilasciata Conn 1 = "+con1.getNCon());
@@ -240,11 +240,11 @@ public class ConnectionPoolTest extends TestCase
 		{
 			e1.printStackTrace();
 		}
-		assertNotNull("La connessione numero 3 non è stata assegnata", con3);
+		assertNotNull("La connessione numero 3 non ï¿½ stata assegnata", con3);
 
 		con1 = conn.getConn();
 		System.out.println("Conn 1 = "+con1.getNCon());
-		assertNotNull("La connessione numero 1 non è stata assegnata", con1);
+		assertNotNull("La connessione numero 1 non ï¿½ stata assegnata", con1);
 
 		conn.releaseConn(con2);
 		System.out.println("Rilasciata Conn 2 = "+con2.getNCon());
@@ -280,7 +280,7 @@ public class ConnectionPoolTest extends TestCase
 			}
 		}
 		System.out.println("Conn 2 = "+con2.getNCon());
-		assertNotNull("La connessione numero 2 non è stata assegnata", con2);
+		assertNotNull("La connessione numero 2 non ï¿½ stata assegnata", con2);
 
 		conn.releaseConn(con1);
 		System.out.println("Rilasciata Conn 1 = "+con1.getNCon());

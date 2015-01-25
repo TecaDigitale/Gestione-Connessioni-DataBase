@@ -20,7 +20,7 @@ public class AllTests
 
   public static void main(String[] args)
   {
-    junit.swingui.TestRunner.run(AllTests.class);
+//    junit.swingui.TestRunner.run(AllTests.class);
   }
 
   public static Test suite()

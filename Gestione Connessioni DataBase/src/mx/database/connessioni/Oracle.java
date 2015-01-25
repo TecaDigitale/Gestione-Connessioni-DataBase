@@ -15,9 +15,10 @@ import java.sql.Types;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 import mx.database.MsSqlException;
 import mx.database.interfacce.IMsSql;
-import mx.log4j.Logger;
 
 /**
  * Questa classe viene utilizzata per implementare l'accesso al database Oracle
@@ -32,7 +33,7 @@ public class Oracle implements IMsSql
   /**
    * Questa variabile viene utilizzata per eseguire lo log delle applicazioni
    */
-  private static Logger log = new Logger(Oracle.class, "mx.database");
+  private static Logger log = Logger.getLogger(Oracle.class);
 
 
   /**
@@ -205,7 +206,7 @@ public class Oracle implements IMsSql
       ris = stat.executeUpdate(comando);
 			tFin = new GregorianCalendar();
 			if ((tFin.getTimeInMillis()-tIni.getTimeInMillis())>3000)
-				log.fatal("L'esecuzuine ["+comando+"] è stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
+				log.fatal("L'esecuzuine ["+comando+"] ï¿½ stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
     }
     catch (SQLException e)
     {
@@ -275,7 +276,7 @@ public class Oracle implements IMsSql
       cs.execute();
 			tFin = new GregorianCalendar();
 			if ((tFin.getTimeInMillis()-tIni.getTimeInMillis())>3000)
-				log.fatal("La Stored Procedure ["+NomeSp+"] è stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
+				log.fatal("La Stored Procedure ["+NomeSp+"] ï¿½ stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
 
       if (cs.getInt(1) != 0) { throw new MsSqlException(cs.getInt(1), cs
           .getString(2)); }
@@ -368,7 +369,7 @@ public class Oracle implements IMsSql
       cs.execute();
 			tFin = new GregorianCalendar();
 			if ((tFin.getTimeInMillis()-tIni.getTimeInMillis())>3000)
-				log.fatal("La Stored Procedure ["+NomeSp+"] è stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
+				log.fatal("La Stored Procedure ["+NomeSp+"] ï¿½ stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
 
       if (cs.getInt(2) != 0)
       {

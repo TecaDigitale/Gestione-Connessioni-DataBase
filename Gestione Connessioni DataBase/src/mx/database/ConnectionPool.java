@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import mx.log4j.Logger;
+import org.apache.log4j.Logger;
 
 /**
  * Questa classe ha il compito di gestire la multi connessione verso un database
@@ -18,13 +18,12 @@ import mx.log4j.Logger;
  * @author Randazzo Massimiliano
  * 
  */
-public class ConnectionPool
-{
+public class ConnectionPool {
 
 	/**
 	 * Questa variabile viene utilizzata per eseguire lo log delle applicazioni
 	 */
-	private static Logger log = new Logger(ConnectionPool.class, "mx.database");
+	private static Logger log = Logger.getLogger(ConnectionPool.class);
 
 	/**
 	 * Quresta variabile viene utilizzata per indicare il tipo di Database
@@ -37,8 +36,7 @@ public class ConnectionPool
 	/**
 	 * In questa variabile vengono registrate la lista delle connessioni aperte
 	 */
-	@SuppressWarnings("unchecked")
-	private Vector pool = null;
+	private Vector<MsSqlPool> pool = null;
 
 	/**
 	 * Tramite questa variabile viene registrato il nome del Server del database
@@ -94,25 +92,32 @@ public class ConnectionPool
 	 * Costruttore
 	 * 
 	 */
-	public ConnectionPool()
-	{
+	public ConnectionPool() {
 		super();
 	}
 
 	/**
 	 * Costruttore
 	 * 
-	 * @param serverName Nome del server da contattare
-	 * @param userName Nome Utente da utilizzare per la connessione
-	 * @param password Password dell'utente da utilizzare per la connessione
-	 * @param tipoDatabase Tipo di database da  contattare
-	 * @param numConnessioni Numero minimo delle connessioni da tenere aperte contemporaneamente
-	 * @param serverPort Numero della porta da utilizzare per la connessione con il database
-	 * @throws SQLException 
+	 * @param serverName
+	 *            Nome del server da contattare
+	 * @param userName
+	 *            Nome Utente da utilizzare per la connessione
+	 * @param password
+	 *            Password dell'utente da utilizzare per la connessione
+	 * @param tipoDatabase
+	 *            Tipo di database da contattare
+	 * @param numConnessioni
+	 *            Numero minimo delle connessioni da tenere aperte
+	 *            contemporaneamente
+	 * @param serverPort
+	 *            Numero della porta da utilizzare per la connessione con il
+	 *            database
+	 * @throws SQLException
 	 */
-	public ConnectionPool(String serverName, String userName,
-			String password, String tipoDatabase, String nomeDatabase, int numConnessioni, String serverPort) throws SQLException
-	{
+	public ConnectionPool(String serverName, String userName, String password,
+			String tipoDatabase, String nomeDatabase, int numConnessioni,
+			String serverPort) throws SQLException {
 		super();
 		this.sName = serverName;
 		this.pName = serverPort;
@@ -127,16 +132,22 @@ public class ConnectionPool
 	/**
 	 * Costruttore
 	 * 
-	 * @param serverName Nome del server da contattare
-	 * @param userName Nome Utente da utilizzare per la connessione
-	 * @param password Password dell'utente da utilizzare per la connessione
-	 * @param tipoDatabase Tipo di database da  contattare
-	 * @param numConnessioni Numero minimo delle connessioni da tenere aperte contemporaneamente
-	 * @throws SQLException 
+	 * @param serverName
+	 *            Nome del server da contattare
+	 * @param userName
+	 *            Nome Utente da utilizzare per la connessione
+	 * @param password
+	 *            Password dell'utente da utilizzare per la connessione
+	 * @param tipoDatabase
+	 *            Tipo di database da contattare
+	 * @param numConnessioni
+	 *            Numero minimo delle connessioni da tenere aperte
+	 *            contemporaneamente
+	 * @throws SQLException
 	 */
-	public ConnectionPool(String serverName, String userName,
-			String password, String tipoDatabase, String nomeDatabase, int numConnessioni) throws SQLException
-	{
+	public ConnectionPool(String serverName, String userName, String password,
+			String tipoDatabase, String nomeDatabase, int numConnessioni)
+			throws SQLException {
 		super();
 		this.sName = serverName;
 		this.uName = userName;
@@ -153,8 +164,7 @@ public class ConnectionPool
 	 * 
 	 * @return Returns the connection.
 	 */
-	public boolean isConnection()
-	{
+	public boolean isConnection() {
 		return connection;
 	}
 
@@ -163,78 +173,48 @@ public class ConnectionPool
 	 * connessioni.
 	 * 
 	 */
-	public synchronized void loadConn() throws SQLException
-	{
+	public synchronized void loadConn() throws SQLException {
 
-		if (connectionCheck == null)
-		{
+		if (connectionCheck == null) {
 			connectionCheck = new ConnectionCheck(this);
 			connectionCheck.start();
 			connection = true;
 		}
 		/*
-		if (pool == null && !isConnection())
-		{
-			pool = new Vector();
-
-			try
-			{
-				log.debug("Apro il pool di connessioni con il database");
-				log.debug("sName: " + sName);
-				log.debug("pName: " + pName);
-				log.debug("uName: " + uName);
-				log.debug("dBase: " + dBase);
-				log.info("Server Name: "+sName+" Database: "+dBase+" Num Connesioni: "+nConn);
-				for (int x = 0; x < nConn; x++)
-				{
-					log.info("Connessione n.: " + x);
-					MsSqlPool conn = new MsSqlPool(sName, pName, uName, pwd, dBase);
-					conn.setTipoDb(tipoDb);
-					conn.openDb();
-					conn.setNCon(x);
-					conn.setInUse(false);
-					conn.setOpen(true);
-					pool.add(conn);
-					connection = true;
-				}
-			}
-			catch (SQLException e)
-			{
-				log.error(e);
-				throw e;
-			}
-			catch (Exception e)
-			{
-				log.error(e);
-			}
-		}
-		*/
+		 * if (pool == null && !isConnection()) { pool = new Vector();
+		 * 
+		 * try { log.debug("Apro il pool di connessioni con il database");
+		 * log.debug("sName: " + sName); log.debug("pName: " + pName);
+		 * log.debug("uName: " + uName); log.debug("dBase: " + dBase);
+		 * log.info("Server Name: "
+		 * +sName+" Database: "+dBase+" Num Connesioni: "+nConn); for (int x =
+		 * 0; x < nConn; x++) { log.info("Connessione n.: " + x); MsSqlPool conn
+		 * = new MsSqlPool(sName, pName, uName, pwd, dBase);
+		 * conn.setTipoDb(tipoDb); conn.openDb(); conn.setNCon(x);
+		 * conn.setInUse(false); conn.setOpen(true); pool.add(conn); connection
+		 * = true; } } catch (SQLException e) { log.error(e); throw e; } catch
+		 * (Exception e) { log.error(e); } }
+		 */
 	}
 
 	/**
-	 * Tramite questo metodo si prende la prima connessione disponibile, nel caso
-	 * in cui non siano disponibili nessuna connessione il programma si prende il
-	 * compito di aprirne un'altra
+	 * Tramite questo metodo si prende la prima connessione disponibile, nel
+	 * caso in cui non siano disponibili nessuna connessione il programma si
+	 * prende il compito di aprirne un'altra
 	 * 
 	 * @return Restituisce il pool di connessioni
 	 */
-	@SuppressWarnings("unchecked")
-	public synchronized MsSqlPool getConn()
-	{
+	public synchronized MsSqlPool getConn() {
 		MsSqlPool conn = null;
 		int x = 0;
-		try
-		{
+		try {
 			log.debug("Ricerco una connessione disponibile");
 			if (pool == null)
-				pool = new Vector();
-			for (x = 0; x < pool.size(); x++)
-			{
-				if (!((MsSqlPool) pool.get(x)).isInUse())
-				{
+				pool = new Vector<MsSqlPool>();
+			for (x = 0; x < pool.size(); x++) {
+				if (!((MsSqlPool) pool.get(x)).isInUse()) {
 					conn = (MsSqlPool) pool.get(x);
-					if (!conn.isOpen())
-					{
+					if (!conn.isOpen()) {
 						conn.openDb();
 						conn.setOpen(true);
 					}
@@ -242,8 +222,7 @@ public class ConnectionPool
 					break;
 				}
 			}
-			if (conn == null)
-			{
+			if (conn == null) {
 				log.info("Apro nuova connessione con il Database");
 				conn = new MsSqlPool(sName, pName, uName, pwd, dBase);
 				conn.setTipoDb(tipoDb);
@@ -255,13 +234,9 @@ public class ConnectionPool
 				connection = true;
 			}
 			log.info("Connessione assegnata n. " + conn.getNCon());
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			log.error(e);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return conn;
@@ -273,34 +248,21 @@ public class ConnectionPool
 	 * @param conn
 	 * 
 	 */
-	public void releaseConn(MsSqlPool conn)
-	{
-		try
-		{
-			
+	public void releaseConn(MsSqlPool conn) {
+		try {
+
 			log.info("Rilascio la connessione n. " + conn.getNCon());
-			if (conn.getNCon() >= nConn)
-			{
+			if (conn.getNCon() >= nConn) {
 				conn.closeDb();
 				conn.setOpen(false);
 			}
 			conn.setInUse(false);
 			/*
-			if (conn.getNCon() >= nConn)
-			{
-				for (int x = 0; x < pool.size(); x++)
-				{
-					if (pool.get(x) != null && 
-							((MsSqlPool) pool.get(x)).getNCon() == conn.getNCon())
-					{
-						pool.remove(x);
-					}
-				}
-			}
-			*/
-		}
-		catch (SQLException e)
-		{
+			 * if (conn.getNCon() >= nConn) { for (int x = 0; x < pool.size();
+			 * x++) { if (pool.get(x) != null && ((MsSqlPool)
+			 * pool.get(x)).getNCon() == conn.getNCon()) { pool.remove(x); } } }
+			 */
+		} catch (SQLException e) {
 			log.error(e);
 		}
 	}
@@ -308,8 +270,7 @@ public class ConnectionPool
 	/**
 	 * Metodo richiamato al momento della distruzione della variabile
 	 */
-	protected void finalize()
-	{
+	protected void finalize() {
 		closeAll();
 	}
 
@@ -317,50 +278,41 @@ public class ConnectionPool
 	 * Tramite questo metodo vengono chiuse tutte le connessioni aperte
 	 * 
 	 */
-	public void closeAll()
-	{
-		try
-		{
+	public void closeAll() {
+		try {
 			log.debug("Chiudo tutte le connessioni");
-			if (pool != null)
-			{
-  			for (int x = 0; x < pool.size(); x++)
-  			{
-  				if (((MsSqlPool) pool.get(x)).isOpen())
-  				{
-  					((MsSqlPool) pool.get(x)).closeDb();
-  				}
-  			}
+			if (pool != null) {
+				for (int x = 0; x < pool.size(); x++) {
+					if (((MsSqlPool) pool.get(x)).isOpen()) {
+						((MsSqlPool) pool.get(x)).closeDb();
+					}
+				}
 			}
 			if (connectionCheck != null)
 				connectionCheck.end();
 
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			log.error(e);
 		}
 	}
 
 	/**
-	 * Questo metodo viene utilizzato per leggere il nome del database utilizzato
-	 * per la connessione
+	 * Questo metodo viene utilizzato per leggere il nome del database
+	 * utilizzato per la connessione
 	 * 
 	 * @return Restituisce il nome del database
 	 */
-	public String getDBase()
-	{
+	public String getDBase() {
 		return dBase;
 	}
 
 	/**
-	 * Questo metodo viene utilizzato per leggere la porta del database utilizzato
-	 * per la connessione
+	 * Questo metodo viene utilizzato per leggere la porta del database
+	 * utilizzato per la connessione
 	 * 
 	 * @return Restituisce la porta del database Server
 	 */
-	public String getPName()
-	{
+	public String getPName() {
 		return pName;
 	}
 
@@ -370,8 +322,7 @@ public class ConnectionPool
 	 * 
 	 * @return Restituisce la password del database
 	 */
-	public String getPwd()
-	{
+	public String getPwd() {
 		return pwd;
 	}
 
@@ -381,41 +332,37 @@ public class ConnectionPool
 	 * 
 	 * @return Restituisce il nome del server
 	 */
-	public String getSName()
-	{
+	public String getSName() {
 		return sName;
 	}
 
 	/**
-	 * Questo metodo viene utilizzato per leggere l'utente del database utilizzato
-	 * per la connessione
+	 * Questo metodo viene utilizzato per leggere l'utente del database
+	 * utilizzato per la connessione
 	 * 
 	 * @return Restituisce il nome dell'utente del database
 	 */
-	public String getUName()
-	{
+	public String getUName() {
 		return uName;
 	}
 
 	/**
-	 * Questo metodo viene utilizzato per settare il nome del database utilizzato
-	 * per la connessione
+	 * Questo metodo viene utilizzato per settare il nome del database
+	 * utilizzato per la connessione
 	 * 
 	 * @param string
 	 */
-	public void setDBase(String string)
-	{
+	public void setDBase(String string) {
 		dBase = string;
 	}
 
 	/**
-	 * Questo metodo viene utilizzato per settare la porta del database utilizzato
-	 * per la connessione
+	 * Questo metodo viene utilizzato per settare la porta del database
+	 * utilizzato per la connessione
 	 * 
 	 * @param string
 	 */
-	public void setPName(String string)
-	{
+	public void setPName(String string) {
 		pName = string;
 	}
 
@@ -425,8 +372,7 @@ public class ConnectionPool
 	 * 
 	 * @param string
 	 */
-	public void setPwd(String string)
-	{
+	public void setPwd(String string) {
 		pwd = string;
 	}
 
@@ -436,19 +382,17 @@ public class ConnectionPool
 	 * 
 	 * @param string
 	 */
-	public void setSName(String string)
-	{
+	public void setSName(String string) {
 		sName = string;
 	}
 
 	/**
-	 * Questo metodo viene utilizzato per settare l'utente del database utilizzato
-	 * per la connessione
+	 * Questo metodo viene utilizzato per settare l'utente del database
+	 * utilizzato per la connessione
 	 * 
 	 * @param string
 	 */
-	public void setUName(String string)
-	{
+	public void setUName(String string) {
 		uName = string;
 	}
 
@@ -458,8 +402,7 @@ public class ConnectionPool
 	 * @return Restituisce il numero minimo di connessioni aperte
 	 *         contemporaneamente
 	 */
-	public int getNConn()
-	{
+	public int getNConn() {
 		return nConn;
 	}
 
@@ -468,63 +411,54 @@ public class ConnectionPool
 	 * 
 	 * @param i
 	 */
-	public void setNConn(int i)
-	{
+	public void setNConn(int i) {
 		nConn = i;
 	}
 
 	/**
-	 * Questo metodo viene utilizzato per leggere il tipo di Database selezionato
-	 * pu� assumere i seguenti valori:<BR>
+	 * Questo metodo viene utilizzato per leggere il tipo di Database
+	 * selezionato pu� assumere i seguenti valori:<BR>
 	 * <B>MS-SQL</B> (default) Microsoft Sql Server.<BR>
 	 * <B>MaxDB</B> MaxDB
 	 * 
 	 * @return Restituisce il tipo di Database utilizzato
 	 */
-	public String getTipoDb()
-	{
+	public String getTipoDb() {
 		return tipoDb;
 	}
 
 	/**
-	 * Questo metodo viene utilizzato per indicare il tipo di Database selezionato
-	 * pu� assumere i seguenti valori:<BR>
+	 * Questo metodo viene utilizzato per indicare il tipo di Database
+	 * selezionato pu� assumere i seguenti valori:<BR>
 	 * <B>MS-SQL</B> (default) Microsoft Sql Server.<BR>
 	 * <B>MaxDB</B> MaxDB
 	 * 
 	 * @param string
 	 */
-	public void setTipoDb(String string)
-	{
+	public void setTipoDb(String string) {
 		tipoDb = string;
 	}
 
 	/**
-	 * Questo metodo viene utilizzato per la generazione della condiaione Join Left
-	 * rispetto al tipo di Driver Selezionato
+	 * Questo metodo viene utilizzato per la generazione della condiaione Join
+	 * Left rispetto al tipo di Driver Selezionato
 	 * 
 	 * @param table
-	 *          Nome della tabella
+	 *            Nome della tabella
 	 * @param condition
-	 *          Consizione di Join
+	 *            Consizione di Join
 	 * @return String join ricalcolata asseconda della classe utilizzata
 	 */
-	public String genJoinLeft(String table, String condition)
-	{
+	public String genJoinLeft(String table, String condition) {
 		MsSqlPool conn = null;
 		String ris = "";
-		
-		try
-		{
+
+		try {
 			conn = getConn();
 			ris = conn.genJoinLeft(table, condition);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			log.error(e);
-		}
-		finally
-		{
+		} finally {
 			if (conn != null)
 				releaseConn(conn);
 		}
@@ -532,50 +466,41 @@ public class ConnectionPool
 	}
 
 	/**
-	 * Questo metodo viene utilizzato per ripulire il pool 
-	 * di connessioni dalle connessioni inattive o non utilizzate da 
-	 * tanto tempo
+	 * Questo metodo viene utilizzato per ripulire il pool di connessioni dalle
+	 * connessioni inattive o non utilizzate da tanto tempo
 	 */
-	@SuppressWarnings("unchecked")
-	protected synchronized void clearConnections()
-	{
+	protected synchronized void clearConnections() {
 		long stale = 0;
-		Enumeration connlist = null;
-		
-		try
-		{
+		Enumeration<MsSqlPool> connlist = null;
+
+		try {
 			stale = System.currentTimeMillis() - timeout;
-			if (pool != null)
-			{
+			if (pool != null) {
 				connlist = pool.elements();
 
 				log.info("Testo le connessioni da ripulire");
-				while ((connlist != null) && (connlist.hasMoreElements()))
-				{
+				while ((connlist != null) && (connlist.hasMoreElements())) {
 					MsSqlPool conn = (MsSqlPool) connlist.nextElement();
 
-					if (conn != null)
-					{
-						log.debug("Connessione n.: "+conn.getNCon());
-						log.debug("inUse: "+conn.isInUse());
-						log.debug("stale: "+stale);
-						log.debug("lastUse: "+conn.getLastUse());
-						log.debug("check Time: "+(stale > conn.getLastUse()));
-						log.debug("check: "+((!conn.isInUse()) && (stale > conn.getLastUse())));
-						log.debug("Validate: "+conn.validate());
-						if (((!conn.isInUse()) && 
-								(stale > conn.getLastUse())) || 
-								(!conn.validate()))
-						{
-							log.info("Chiudo la connessione n.: "+conn.getNCon());
-							try
-							{
-								if (conn.isOpen()){
+					if (conn != null) {
+						log.debug("Connessione n.: " + conn.getNCon());
+						log.debug("inUse: " + conn.isInUse());
+						log.debug("stale: " + stale);
+						log.debug("lastUse: " + conn.getLastUse());
+						log.debug("check Time: " + (stale > conn.getLastUse()));
+						log.debug("check: "
+								+ ((!conn.isInUse()) && (stale > conn
+										.getLastUse())));
+						log.debug("Validate: " + conn.validate());
+						if (((!conn.isInUse()) && (stale > conn.getLastUse()))
+								|| (!conn.validate())) {
+							log.info("Chiudo la connessione n.: "
+									+ conn.getNCon());
+							try {
+								if (conn.isOpen()) {
 									conn.closeDb();
 								}
-							}
-							catch (SQLException e)
-							{
+							} catch (SQLException e) {
 								log.error(e);
 							}
 							pool.removeElement(conn);
@@ -583,13 +508,9 @@ public class ConnectionPool
 					}
 				}
 			}
-		}
-		catch (NullPointerException e)
-		{
-			
-		}
-		catch (Exception e)
-		{
+		} catch (NullPointerException e) {
+
+		} catch (Exception e) {
 			log.error(e);
 
 		}
@@ -597,14 +518,14 @@ public class ConnectionPool
 }
 
 /**
- * Queste thread viene utilizzato per eseguire il test delle connessioni 
- * inutizzate o inattive 
+ * Queste thread viene utilizzato per eseguire il test delle connessioni
+ * inutizzate o inattive
+ * 
  * @author Massimilaino Randazzo
  *
  */
-class ConnectionCheck extends Thread
-{
-	
+class ConnectionCheck extends Thread {
+
 	/**
 	 * Questa variabile viene utilizzata per gestire il pool di connessioni
 	 * 
@@ -612,34 +533,29 @@ class ConnectionCheck extends Thread
 	private ConnectionPool pool = null;
 
 	private boolean ciclo = true;
+
 	/**
 	 * Costruttore
 	 * 
-	 * @param pool Pool di connessioni
+	 * @param pool
+	 *            Pool di connessioni
 	 */
-	public ConnectionCheck(ConnectionPool pool)
-	{
-		this.pool=pool;
+	public ConnectionCheck(ConnectionPool pool) {
+		this.pool = pool;
 	}
 
-	public void run()
-	{
-		while (ciclo)
-		{
-			try
-			{
+	public void run() {
+		while (ciclo) {
+			try {
 				sleep(10000);
-			}
-			catch (InterruptedException e)
-			{
+			} catch (InterruptedException e) {
 			}
 			if (pool != null)
 				pool.clearConnections();
 		}
 	}
-	
-	public void end()
-	{
+
+	public void end() {
 		ciclo = false;
 	}
 }

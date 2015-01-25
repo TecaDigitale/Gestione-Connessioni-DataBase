@@ -43,8 +43,6 @@ public class TestConn
 				else
 					System.err.println("Problemi nel'assegnazione della connnesione");
 			}
-			else
-				System.err.println("Problemi nell'apertura della connessione");
 		}
 		catch (SQLException e)
 		{

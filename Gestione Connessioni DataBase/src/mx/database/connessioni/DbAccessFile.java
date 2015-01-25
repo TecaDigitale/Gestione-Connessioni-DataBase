@@ -16,9 +16,10 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.GregorianCalendar;
 
+import org.apache.log4j.Logger;
+
 import mx.database.MsSqlException;
 import mx.database.interfacce.IMsSql;
-import mx.log4j.Logger;
 
 /**
  * Questa classe viene utilizzata per gli accessi al database utilizzando le
@@ -34,7 +35,7 @@ public class DbAccessFile implements IMsSql
   /**
    * Questa variabile viene utilizzata per eseguire lo log delle applicazioni
    */
-  private static Logger log = new Logger(DbAccessFile.class, "mx.database");
+  private static Logger log = Logger.getLogger(DbAccessFile.class);
   
 	/**
 	 * Questa variabile viene utilizzata per indicare il numero di tentativi di connessione prima di rinunciare
@@ -86,7 +87,7 @@ public class DbAccessFile implements IMsSql
 	}
 
 	/**
-	 * Costruttore della classe nella quale è possibile valorizzare le 
+	 * Costruttore della classe nella quale ï¿½ possibile valorizzare le 
 	 * informazioni relative alla connessione con il database
 	 * 
 	 * @param sName Nome del Server SQL da contattare
@@ -190,7 +191,7 @@ public class DbAccessFile implements IMsSql
 			res = pStat.executeQuery();
 			tFin = new GregorianCalendar();
 			if ((tFin.getTimeInMillis()-tIni.getTimeInMillis())>3000)
-				log.fatal("La Select ["+SQL+"] è stat eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
+				log.fatal("La Select ["+SQL+"] ï¿½ stat eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
 		}
 		catch (SQLException e)
 		{
@@ -242,7 +243,7 @@ public class DbAccessFile implements IMsSql
 			cs.execute();
 			tFin = new GregorianCalendar();
 			if ((tFin.getTimeInMillis()-tIni.getTimeInMillis())>3000)
-				log.fatal("La Stored Procedure ["+NomeSp+"] è stat eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
+				log.fatal("La Stored Procedure ["+NomeSp+"] ï¿½ stat eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
 			
 			if (cs.getInt(1) != 0)
 			{
@@ -321,7 +322,7 @@ public class DbAccessFile implements IMsSql
 			cs.execute();
 			tFin = new GregorianCalendar();
 			if ((tFin.getTimeInMillis()-tIni.getTimeInMillis())>3000)
-				log.fatal("La Stored Procedure ["+NomeSp+"] è stat eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
+				log.fatal("La Stored Procedure ["+NomeSp+"] ï¿½ stat eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
 			
 			if (cs.getInt(2) != 0)
 			{
@@ -531,7 +532,7 @@ public class DbAccessFile implements IMsSql
 			ris = stat.executeUpdate(comando);
 			tFin = new GregorianCalendar();
 			if ((tFin.getTimeInMillis()-tIni.getTimeInMillis())>3000)
-				log.fatal("L'esecuzuine ["+comando+"] è stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
+				log.fatal("L'esecuzuine ["+comando+"] ï¿½ stata eseguita per "+(tFin.getTimeInMillis()-tIni.getTimeInMillis())+" milliSec.");
 		}
 		catch (SQLException e)
 		{
