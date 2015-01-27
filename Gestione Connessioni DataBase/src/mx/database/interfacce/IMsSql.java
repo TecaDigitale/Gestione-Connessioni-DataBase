@@ -219,7 +219,7 @@ public interface IMsSql
   public void rollback() throws SQLException;
 
   /**
-   * Indica se la conenssione è ancora valida
+   * Indica se la conenssione Ã¨ ancora valida
    * 
    * @return
    */
