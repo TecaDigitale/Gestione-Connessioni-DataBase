@@ -14,7 +14,7 @@ package mx.database;
 public class MsSqlPool extends MsSql
 {
 	/**
-	 * Tramite questa variabile si verifica se questa connessione è in uso da un'altro utente
+	 * Tramite questa variabile si verifica se questa connessione Ã¨ in uso da un'altro utente
 	 */
 	private boolean inUse = false;
 	
@@ -24,7 +24,7 @@ public class MsSqlPool extends MsSql
 	private int nCon = -1;
 	
 	/**
-	 * TRamite questa variabile vine indicato del la connessione in questione è aperta
+	 * TRamite questa variabile vine indicato del la connessione in questione Ã¨ aperta
 	 */
 	private boolean open = false;
 
@@ -42,7 +42,7 @@ public class MsSqlPool extends MsSql
 	}
 
 	/**
-	 * Costruttore della classe nella quale è possibile valorizzare le 
+	 * Costruttore della classe nella quale Ã¨ possibile valorizzare le 
 	 * informazioni relative alla connessione con il database
 	 * 
 	 * @param sName Nome del Server SQL da contattare
@@ -63,7 +63,7 @@ public class MsSqlPool extends MsSql
 
 	/**
 	 * Tramite questa variabile di verifica lo stato della connessione
-	 * @return Indica se la connessione è in uso
+	 * @return Indica se la connessione Ã¨ in uso
 	 */
 	public boolean isInUse()
 	{
@@ -109,8 +109,8 @@ public class MsSqlPool extends MsSql
 	}
 
 	/**
-	 * Tramite questo metodo verifico se la connessione è aperta
-	 * @return Indica se la connessione è aperta
+	 * Tramite questo metodo verifico se la connessione Ã¨ aperta
+	 * @return Indica se la connessione Ã¨ aperta
 	 */
 	public boolean isOpen()
 	{
